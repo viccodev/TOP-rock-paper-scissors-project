@@ -21,7 +21,13 @@ let result = document.createElement("div");
 sectionrps.appendChild(result);
 result.textContent = "Result:"
 let options = [];
+// TOTAL SCORES
+    let drawScore = 0;
+    let totalPartys = 0;
+    let humanScore = 0;
+    let computerScore = 0;
 betterRPS.addEventListener("mouseup", (event) =>{
+    if (humanScore < 5 && computerScore < 5){
     result.textContent = "";
     options = [];
     let hoption = event.target.id;
@@ -32,6 +38,7 @@ betterRPS.addEventListener("mouseup", (event) =>{
     switch (target.id) {
         case "scissors":
             result.textContent = "Result " + playRound(getHumanChoice("scissors"), coption);
+            break;
         case "rock":
             result.textContent = "Result " + playRound(getHumanChoice("rock"), coption);
             break;
@@ -39,6 +46,12 @@ betterRPS.addEventListener("mouseup", (event) =>{
         case "paper":
             result.textContent = "Result " + playRound(getHumanChoice("paper"), coption);
             break;
+    }
+    } else if (humanScore === 5 || computerScore === 5){
+        console.log("humanscore: " + humanScore + " and computerScore " + computerScore);
+        result.textContent = computerScore>humanScore ? "First on Win 5 Matches!: Computer!" : "First on Win 5 Matches!: Human!";
+        humanScore = 0;
+        computerScore = 0;
     }
 });
 
@@ -82,10 +95,6 @@ function getHumanChoice(humanChoice) {
 
 // Play single round
 function playRound(humanChoice, computerChoice){
-    let drawScore = 0;
-    let totalPartys = 0;
-    let humanScore = 0;
-    let computerScore = 0;
     if(humanChoice === "rock" && computerChoice === "scissors"){
         console.log("Human Wins with rock!");
         humanScore++;
@@ -119,8 +128,8 @@ function playRound(humanChoice, computerChoice){
     } else if (computerChoice === humanChoice) {
         totalPartys++;
         drawScore++;
-        console.log("DRAW with we " + options[0]);
-        return "DRAW with we" + options[0];
+        console.log("DRAW with " + options[0]);
+        return "DRAW with " + options[0];
     } else {
         console.log("bad use");
     }

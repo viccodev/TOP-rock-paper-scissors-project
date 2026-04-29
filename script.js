@@ -26,7 +26,7 @@ let options = [];
     let totalPartys = 0;
     let humanScore = 0;
     let computerScore = 0;
-betterRPS.addEventListener("mouseup", (event) =>{
+betterRPS.addEventListener("click", (event) =>{
     if (humanScore < 5 && computerScore < 5){
     result.textContent = "";
     options = [];

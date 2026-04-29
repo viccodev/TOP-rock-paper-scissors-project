@@ -2,7 +2,53 @@
 Crear una funcion llamada getComputerChoice que de la opcion de la maquina. 
 
  */
+let sectionrps = document.querySelector("#betterRPS");
+let btnScis, btnRock, btnPaper;
+btnScis = document.createElement("button");
+btnScis.textContent = "Scissors";
+btnScis.setAttribute("id", "scissors")
+sectionrps.appendChild(btnScis)
+btnRock = document.createElement("button"); 
+btnRock.textContent = "Rock";
+btnRock.setAttribute("id", "rock");
+sectionrps.appendChild(btnRock)
+btnPaper = document.createElement("button");
+btnPaper.textContent = "Paper";
+btnPaper.setAttribute("id", "paper");
+sectionrps.appendChild(btnPaper);
 
+let result = document.createElement("div");
+sectionrps.appendChild(result);
+result.textContent = "Result:"
+let options = [];
+betterRPS.addEventListener("mouseup", (event) =>{
+    result.textContent = "";
+    options = [];
+    let hoption = event.target.id;
+    let coption = getComputerChoice();
+    options.push(hoption);
+    options.push(coption);
+    let target = event.target;
+    switch (target.id) {
+        case "scissors":
+            result.textContent = "Result " + playRound(getHumanChoice("scissors"), coption);
+        case "rock":
+            result.textContent = "Result " + playRound(getHumanChoice("rock"), coption);
+            break;
+
+        case "paper":
+            result.textContent = "Result " + playRound(getHumanChoice("paper"), coption);
+            break;
+    }
+});
+
+//Div for results
+
+
+
+
+
+// Logica de opcion de computadora
 function getComputerChoice() {
     let computerChoice = Math.floor((Math.random() * 3) + 1);
     if (computerChoice === 1) {
@@ -18,8 +64,11 @@ function getComputerChoice() {
 
 // Ahora, la logica para la opcion del usuario
 
-function getHumanChoice() {
-    let humanChoice = prompt("Rock, Paper or Scissors?").toLowerCase();
+function getHumanChoice(humanChoice) {
+    if (humanChoice === "" || humanChoice === undefined){
+    humanChoice = prompt("Rock, Paper or Scissors?").toLowerCase();
+    }
+    humanChoice = humanChoice.toLowerCase();
     if (humanChoice === "rock") {
         return "rock";
     } else if (humanChoice === "paper") {
@@ -27,9 +76,57 @@ function getHumanChoice() {
     } else if (humanChoice === "scissors") {
         return "scissors";
     } else {
-        console.log("function now working");
+        console.log("Enter a valid option");
     }
 }
+
+// Play single round
+function playRound(humanChoice, computerChoice){
+    let drawScore = 0;
+    let totalPartys = 0;
+    let humanScore = 0;
+    let computerScore = 0;
+    if(humanChoice === "rock" && computerChoice === "scissors"){
+        console.log("Human Wins with rock!");
+        humanScore++;
+        totalPartys++;
+        return "Human Wins with rock!";
+    } else if (humanChoice === "paper" && computerChoice === "rock"){
+        console.log("Humans wins with paper!");
+        humanScore++;
+        totalPartys++;
+        return "Humans wins with paper!";
+    } else if (humanChoice === "scissors" && computerChoice === "paper") {
+        console.log("Human wins with Scissors!")
+        humanScore++;
+        totalPartys++;
+        return "Human wins with Scissors!";
+    } else if(computerChoice === "rock" && humanChoice === "scissors"){
+        console.log("Computers wins with rock!");
+        computerScore++;
+        totalPartys++;
+        return "Computers wins with rock!";
+    } else if (computerChoice === "paper" && humanChoice === "rock"){
+        console.log("Computer wins with paper!");
+        computerScore++;
+        totalPartys++;
+        return "Computer wins with paper!";
+    } else if (computerChoice === "scissors" && humanChoice === "paper") {
+        console.log("Computer wins with scissors!")
+        computerScore++;
+        totalPartys++;
+        return "Computer wins with scissors!";
+    } else if (computerChoice === humanChoice) {
+        totalPartys++;
+        drawScore++;
+        console.log("DRAW with we " + options[0]);
+        return "DRAW with we" + options[0];
+    } else {
+        console.log("bad use");
+    }
+}
+
+
 // single round
 // la logica detras de una ronda me tiene pensante y eso que es facil xd, quizas es solo paralisis por analisis. La cosa es que, si el usuario saca una mano favorable, entonces usuario gana, si computerChoice saca una mano favorable entonces gana, como hago eso?. creo que no hay forma "simple" o limpia, sera con muchos if else. No buscare en google, pq quiero hacerlo yo.
 //
@@ -52,6 +149,9 @@ function getHumanChoice() {
         }
     }
     */
+
+
+   /* top wants to avoid the playgame (5 rounds) logic fow now
 function playGame(){
     let drawScore = 0;
     let totalPartys = 0;
@@ -110,4 +210,4 @@ function playGame(){
         console.log("The Human WINS " + humanScore + "/" + totalPartys);
     }
     }
-
+*/
